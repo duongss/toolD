@@ -30,7 +30,7 @@ import javax.inject.Inject
 class SplitViewModel @Inject constructor(savedStateHandle: SavedStateHandle) :
     BaseViewModel(savedStateHandle) {
 
-    var filePath = savedStateHandle.get<String>(SplitActivity.BUNDLE_FILE_SELECTED)!!
+    var filePath = savedStateHandle.get<String>(SplitActivity.BUNDLE_FILE_SELECTED)
 
     var password = savedStateHandle.get<String>(SplitActivity.BUNDLE_FILE_PASSWORD) ?: ""
 
@@ -49,32 +49,40 @@ class SplitViewModel @Inject constructor(savedStateHandle: SavedStateHandle) :
     var isLoadPreview = MutableLiveData(false)
 
     fun initData() = viewModelScope.launch {
-        inputFile = File(filePath)
-        val pdDoc: PDDocument = PDDocument.load(inputFile, password)
-        numberOfPages = pdDoc.numberOfPages
-        withContext(Dispatchers.IO) {
-            try {
-                val pfd = ParcelFileDescriptor.open(inputFile, ParcelFileDescriptor.MODE_READ_ONLY)
-                val renderer = PdfRenderer(pfd)
-                val pagesCount = renderer.pageCount - 1
-                for (i in 0..pagesCount) {
-                    val page = renderer.openPage(i)
-                    val bitmap =
-                        Bitmap.createBitmap(page.width, page.height, Bitmap.Config.ARGB_8888)
-                    page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-                    listBitmapPreview.add(bitmap)
-                    page.close()
+        filePath?.let {
+            inputFile = File(it)
+            val pdDoc: PDDocument = PDDocument.load(inputFile, password)
+            numberOfPages = pdDoc.numberOfPages
+            withContext(Dispatchers.IO) {
+                try {
+                    val pfd =
+                        ParcelFileDescriptor.open(inputFile, ParcelFileDescriptor.MODE_READ_ONLY)
+                    val renderer = PdfRenderer(pfd)
+                    val pagesCount = renderer.pageCount - 1
+                    for (i in 0..pagesCount) {
+                        val page = renderer.openPage(i)
+                        val bitmap =
+                            Bitmap.createBitmap(page.width, page.height, Bitmap.Config.ARGB_8888)
+                        page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+                        listBitmapPreview.add(bitmap)
+                        page.close()
+                    }
+                    renderer.close()
+                    pfd.close()
+                } catch (e: Exception) {
+                    val pr = PDFRenderer(pdDoc)
+                    for (pageNumber in 0 until pdDoc.numberOfPages) {
+                        listBitmapPreview.add(pr.renderImage(pageNumber))
+                    }
+                    pdDoc.close()
                 }
-                renderer.close()
-                pfd.close()
-            } catch (e: Exception) {
-                val pr = PDFRenderer(pdDoc)
-                for (pageNumber in 0 until pdDoc.numberOfPages) {
-                    listBitmapPreview.add(pr.renderImage(pageNumber))
+
+                withContext(Dispatchers.Main) {
+                    isLoadPreview.value = true
                 }
-                pdDoc.close()
             }
 
+        } ?: kotlin.run {
             withContext(Dispatchers.Main) {
                 isLoadPreview.value = true
             }

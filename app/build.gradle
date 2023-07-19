@@ -39,15 +39,13 @@ android {
         dataBinding true
     }
 }
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
-                groupId = 'com.dss.tooldocapplication'
-                artifactId = 'toolD'
-                version = 'p27_1.0'
 
-            }
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.dss.tooldocapplication'
+            artifactId = 'toolD'
+            version = 'p27_1.0'
         }
     }
 }
