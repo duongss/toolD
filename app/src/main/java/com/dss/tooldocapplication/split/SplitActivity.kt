@@ -39,7 +39,7 @@ class SplitActivity : BaseActivity<FragmentSplitBinding>() {
 
     companion object {
         const val BUNDLE_FILE_SELECTED = "bundle_file_selected"
-        const val BUNDLE_FILE_PASSWORD = "bundle_file_selected"
+        const val BUNDLE_FILE_PASSWORD = "bundle_file_pass"
 
         fun newIntent(context: Context, file: String, password: String): Intent {
             return Intent(context, SplitActivity::class.java).apply {
