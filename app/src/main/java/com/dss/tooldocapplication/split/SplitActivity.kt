@@ -16,9 +16,7 @@ import com.dss.tooldocapplication.split.adapter.SplitMethodAdapter
 import com.dss.tooldocapplication.split.model.Range
 import com.dss.tooldocapplication.split.model.Split
 import com.dss.tooldocapplication.split.viewmodel.SplitViewModel
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class SplitActivity : BaseActivity<FragmentSplitBinding>() {
 
     override fun bindingView() = FragmentSplitBinding.inflate(layoutInflater)

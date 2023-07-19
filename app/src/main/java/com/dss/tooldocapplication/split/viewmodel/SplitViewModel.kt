@@ -5,11 +5,10 @@ import android.graphics.Bitmap
 import android.graphics.pdf.PdfRenderer
 import android.os.ParcelFileDescriptor
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dss.tooldocapplication.ExternalFileApp
 import com.dss.tooldocapplication.R
-import com.dss.tooldocapplication.split.SplitActivity
 import com.dss.tooldocapplication.split.model.Image
 import com.dss.tooldocapplication.split.model.Range
 import com.dss.tooldocapplication.split.model.Split
@@ -18,21 +17,27 @@ import com.tom_roush.pdfbox.multipdf.PDFMergerUtility
 import com.tom_roush.pdfbox.multipdf.Splitter
 import com.tom_roush.pdfbox.pdmodel.PDDocument
 import com.tom_roush.pdfbox.rendering.PDFRenderer
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
-import javax.inject.Inject
 
 
-@HiltViewModel
-class SplitViewModel @Inject constructor(savedStateHandle: SavedStateHandle) :
-    BaseViewModel(savedStateHandle) {
+class SplitViewModel : ViewModel() {
 
-    var filePath = savedStateHandle.get<String>(SplitActivity.BUNDLE_FILE_SELECTED)
+    val isShowLoading = MutableLiveData<Boolean>()
 
-    var password = savedStateHandle.get<String>(SplitActivity.BUNDLE_FILE_PASSWORD) ?: ""
+    fun showLoading() {
+        isShowLoading.postValue(true)
+    }
+
+    fun dismissLoading() {
+        isShowLoading.postValue(false)
+    }
+
+    var filePath: String? = null
+
+    var password = ""
 
     lateinit var inputFile: File
 
