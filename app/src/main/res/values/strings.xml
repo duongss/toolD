@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">ToolDocApplication</string>
+    <string name="processing">Processing</string>
+
+    <string name="split_method">Split method</string>
+    <string name="split">Split</string>
+    <string name="preview">Preview</string>
+    <string name="total_pages">Total pages</string>
+
+    <string name="split_1">Split by ranges</string>
+    <string name="sub_split_1">Add custom ranges</string>
+    <string name="split_2">Fixed ranges</string>
+    <string name="sub_split_2">Assign a fixed interval</string>
+    <string name="split_3">Delete pages</string>
+    <string name="sub_split_3">Remove individual pages or ranges of page</string>
+    <string name="split_4">Extract all pages</string>
+    <string name="sub_split_4">PDF files will be created</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="split_document_into_equal_page_ranges">Split document into equal page ranges</string>
+    <string name="ranges">Ranges</string>
+    <string name="range">Range</string>
+    <string name="add_range">Add Range</string>
+    <string name="invalid_field">Invalid field</string>
+    <string name="spit_file">Split files</string>
+    <string name="title_file_not_exists">File is not exists</string>
+</resources>
