@@ -33,7 +33,7 @@
                 android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:riv_corner_radius="@dimen/border_small" />
+                app:riv_corner_radius="14dp" />
 
             <FrameLayout
                 android:id="@+id/frInfo"
@@ -86,7 +86,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/main_description"
+                    android:textColor="@color/black"
                     android:textSize="12sp"
                     android:visibility="gone" />
 

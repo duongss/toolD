@@ -1,8 +1,8 @@
 package com.dss.tooldocapplication.split.adapter
 
 import android.content.Context
-import android.viewbinding.ViewBinding
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 
 /** BaseViewHolder is an abstract class for structuring the base view holder class. */
 open class BaseViewHolder<T, V : ViewBinding>(val binding: V) :

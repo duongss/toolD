@@ -2,8 +2,8 @@ package com.dss.tooldocapplication.split.adapter
 
 import android.content.Context
 import android.view.ViewGroup
-import android.viewbinding.ViewBinding
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 import com.dss.tooldocapplication.onAvoidDoubleClick
 
 
